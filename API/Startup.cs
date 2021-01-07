@@ -19,6 +19,7 @@ namespace API
     public class Startup
     {
         private readonly IConfiguration _config;  
+      // readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins"; 
         public Startup(IConfiguration config)
         {
             _config = config;
@@ -38,12 +39,39 @@ namespace API
              options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
                  
             });
-            services.AddControllers();
-    
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
+         
+        // services.AddCors(options =>
+        // {
+        //     options.AddDefaultPolicy(
+        //         builder =>
+        //         {
+        //             builder.WithOrigins("http://localhost:4200/");
+        //         });
+        // });
+        //         services.AddCors(options =>
+        // {
+        //     options.AddPolicy(MyAllowSpecificOrigins,
+        //     builder =>
+        //     {
+        //         builder.AllowAnyOrigin();
+        //     });
+        // });
+               
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("CorsPolicy",
+                        builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        );
+                });
+        
+                services.AddControllers();
+            
+                services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +87,14 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
+        // app.UseCors(MyAllowSpecificOrigins); 
+        //     //      app.UseCors(
+        //     //     options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
+        //     // );
+ 
+    
+           // app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
