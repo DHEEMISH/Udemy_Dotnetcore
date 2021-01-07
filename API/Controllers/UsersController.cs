@@ -3,22 +3,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
     [ApiController]
+   
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly DataContext _context;
+        
         public  UsersController(DataContext context)
         {
             _context = context;
         }
-
+        
         [HttpGet]
+       // [EnableCors("CorsPolicy")]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
             var users=_context.Users.ToListAsync();
