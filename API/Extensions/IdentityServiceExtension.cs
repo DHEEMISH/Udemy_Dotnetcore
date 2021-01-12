@@ -12,6 +12,8 @@ namespace API.Extensions
 {
     public static class IdentityServiceExtension
     {
+// Extension methods enable us to add methods to an existiong types without creating a new derived type or modify the original type.
+
          public static IServiceCollection AddIdentityServices(this IServiceCollection services,IConfiguration config )
         {
               services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

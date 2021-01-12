@@ -78,6 +78,13 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
+            // app.UseCors(MyAllowSpecificOrigins); 
+            //     //      app.UseCors(
+            //     //     options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
+            //     // );
+
+
             // app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseAuthentication();
             app.UseAuthorization();
