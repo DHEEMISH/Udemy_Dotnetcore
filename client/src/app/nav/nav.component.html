@@ -16,7 +16,7 @@
          
           </ul>
           <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-              <a class="dropdown-toggle text-light" dropdownToggle >Welcome User</a>
+              <a class="dropdown-toggle text-light" dropdownToggle >Welcome {{model.username}}</a>
               <div class="dropdown-menu mt-3" *dropdownMenu >
                   <a class="dropdown-item">Edit Profile</a>
                   <div class="dropdown-devider"></div>
@@ -29,13 +29,13 @@
               [(ngModel)]="model.username"
               class="form-control mr-sm-2" 
               type="text" 
-              placeholder="Password" >              
+              placeholder="UserName" >              
               <input 
               name="password"
               [(ngModel)]="model.password"  
               class="form-control mr-sm-2" 
               type="text" 
-              placeholder="UserName" >
+              placeholder="password" >
             <button class="btn btn-outline-success" type="submit">Login</button>
           </form>
         </div>
