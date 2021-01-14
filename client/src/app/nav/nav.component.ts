@@ -11,6 +11,8 @@ import { User } from '../_models/users';
 })
 export class NavComponent implements OnInit {
 model: any={};
+
+  
 //loggedIn:boolean;
 //currentUser$:Observable<User>;
 constructor(public accountService:AccountService) 
@@ -27,6 +29,7 @@ ngOnInit(): void
  login(){
  this.accountService.login(this.model).subscribe(response=> {
      console.log(response);
+   
    //  this.loggedIn=true;
    }, error=>{
      console.log(error);
@@ -34,6 +37,7 @@ ngOnInit(): void
    console.log(this.model);
  }
 
+ 
 logout(){
   this.accountService.logout();
   //this.loggedIn=false;
@@ -41,7 +45,8 @@ logout(){
 
 // getCurrentUser(){
 // this.accountService.currentUser$.subscribe(user=>{
-//   this.loggedIn=!!user;
+//  // this.loggedIn=!!user;
+//  this.user=user.username
 // }, error=>{
 //   console.log(error);
 // })
