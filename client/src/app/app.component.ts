@@ -13,10 +13,10 @@ import { User } from './_models/users';
 export class AppComponent implements OnInit{
   title = 'Dating App';
 users : any; 
-  constructor(private accountService:AccountService
+  constructor(private accountService:AccountService)
     //,
    // private http:HttpClient
-    )
+    
   {
 
   }
