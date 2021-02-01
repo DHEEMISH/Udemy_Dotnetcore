@@ -36,7 +36,7 @@ ngOnInit(): void
    //  this.loggedIn=true;
    }, error=>{
      console.log(error);
-     this.toastr.error(error.error);
+    // this.toastr.error(error.error);
      
    })
    console.log(this.model);
