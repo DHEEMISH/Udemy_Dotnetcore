@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +23,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 import { ServerErrorsComponent } from './errors/server-errors/server-errors.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +41,10 @@ import { MemberCardComponent } from './members/member-card/member-card.component
     
     ServerErrorsComponent,
     
-    MemberCardComponent
+    MemberCardComponent,
+    
+    MemberEditComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -46,11 +52,16 @@ import { MemberCardComponent } from './members/member-card/member-card.component
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    
   ],
   providers: [{
-    provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true
-  }],
-  bootstrap: [AppComponent]
+    provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true}],
+    
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  
 })
+
 export class AppModule { }
