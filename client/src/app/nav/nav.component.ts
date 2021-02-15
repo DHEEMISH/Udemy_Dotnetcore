@@ -12,7 +12,7 @@ import { User } from '../_models/users';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-model: any={};
+ model: any={};
 
   
 //loggedIn:boolean;

@@ -15,17 +15,18 @@ member: Member ;
 user : User;
   constructor(private accountService : AccountService,private memberService:MembersService) {
    this.accountService.currentUser$.pipe(take(1)).subscribe(user=> this.user = user)
-   console.log(this.member + " " + " constructor hits");
+   console.log(this.user.userName + " " + " constructor hits");
    }
 
-  ngOnInit(): void {
+  
+   ngOnInit(): void {
     this.loadmember(); 
   }
 
 
   loadmember()
   {
-    this.memberService.getMemeber(this.user.username).subscribe(member=>{
+    this.memberService.getMemeber(this.user.userName).subscribe(member=>{
      
      this.member=member;
      console.log(this.member + " " + "load member hits");
