@@ -31,7 +31,7 @@ ngOnInit(): void
 
  login(){
  this.accountService.login(this.model).subscribe(response=> {
-     console.log(response);
+    // console.log(response + "test");
    this.route.navigateByUrl('/members');
    //  this.loggedIn=true;
    }, error=>{

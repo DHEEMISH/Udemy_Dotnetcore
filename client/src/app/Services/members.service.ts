@@ -30,6 +30,6 @@ export class MembersService {
 
   getMemeber(username : string) 
   {
-    return this.httpclient.get<Member[]>(this.baseUrl + 'users/' + username);
+    return this.httpclient.get<Member>(this.baseUrl + 'users/' + username);
   }
 }

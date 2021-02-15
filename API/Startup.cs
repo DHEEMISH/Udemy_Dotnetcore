@@ -48,14 +48,16 @@ namespace API
 
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
-            services.AddCors(options =>
-                {
-                    options.AddPolicy("CorsPolicy",
-                        builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        );
-                });
+            services.AddCors();
+            
+            // (options =>
+            //     {
+            //         options.AddPolicy("CorsPolicy",
+            //             builder => builder.AllowAnyOrigin()
+            //             .AllowAnyMethod()
+            //             .AllowAnyHeader()
+            //             );
+            //     });
 
             services.AddControllers();
           
@@ -82,8 +84,12 @@ namespace API
            
 
             app.UseRouting();
-            app.UseCors("CorsPolicy");
-            // app.UseCors(MyAllowSpecificOrigins); 
+             app.UseCors(x => x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithOrigins("https://localhost:4200"));
+           // app.UseCors("CorsPolicy");
+            // app.UseCors(MyAllowSpecificOrigins);  
             //     //      app.UseCors(
             //     //     options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
             //     // );
