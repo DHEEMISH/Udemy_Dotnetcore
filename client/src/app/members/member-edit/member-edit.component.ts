@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { AccountService } from 'src/app/Services/account.service';
 import { MembersService } from 'src/app/Services/members.service';
@@ -11,11 +13,19 @@ import { User } from 'src/app/_models/users';
   styleUrls: ['./member-edit.component.css']
 })
 export class MemberEditComponent implements OnInit {
+  @ViewChild('editForm') editForm: NgForm;
 member: Member ;
 user : User;
-  constructor(private accountService : AccountService,private memberService:MembersService) {
-   this.accountService.currentUser$.pipe(take(1)).subscribe(user=> this.user = user)
-   console.log(this.user.userName + " " + " constructor hits");
+@HostListener('window:beforeunload',['$event']) unloadnotification($event:any)
+{
+  if(this.editForm.dirty){
+    $event.returnValue=true;
+  }
+}
+  constructor(private accountService : AccountService,private memberService:MembersService
+  ,private toastr:ToastrService) {
+      this.accountService.currentUser$.pipe(take(1)).subscribe(user=> this.user = user)
+      //console.log(this.user.userName + " " + " constructor hits");
    }
 
   
@@ -24,15 +34,22 @@ user : User;
   }
 
 
-  loadmember()
-  {
-    this.memberService.getMemeber(this.user.userName).subscribe(member=>{
-     
+  loadmember(){
+    this.memberService.getMemeber(this.user.userName).subscribe(member=>{    
      this.member=member;
-     console.log(this.member + " " + "load member hits");
+    // console.log(this.member + " " + "load member hits");
       
-    }) 
-   
-   }
+    })
+  }
+
+  updateMember()
+  {
+   this.memberService.updateMember(this.member).subscribe(()=>{
+    this.toastr.success('Save changes suceesfully');
+    this.editForm.reset(this.member);
+    console.log(this.member + " "+ "updated");
+   })
+    
+  }
   
   }

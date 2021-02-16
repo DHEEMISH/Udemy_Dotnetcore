@@ -32,4 +32,9 @@ export class MembersService {
   {
     return this.httpclient.get<Member>(this.baseUrl + 'users/' + username);
   }
+
+  updateMember(member : Member) 
+  {
+    return this.httpclient.put(this.baseUrl + 'users' , member);
+  }
 }
