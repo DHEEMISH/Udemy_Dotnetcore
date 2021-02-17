@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VirtualTimeScheduler } from 'rxjs';
+import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { MembersService } from 'src/app/Services/members.service';
 import { Member } from 'src/app/_models/member';
 
@@ -10,17 +10,20 @@ import { Member } from 'src/app/_models/member';
 })
 export class MemberListsComponent implements OnInit {
 
-  members: Member[];
+  //members: Member[];
+  members$: Observable<Member[]>;
+
   constructor(private memberService: MembersService) { }
 
   ngOnInit(): void {
-    this.loadmembers();
+    this.members$=this.memberService.getMemebers();
+   // this.loadmembers();
   }
 
-  loadmembers()
-  {
-    this.memberService.getMemebers().subscribe(members=>{
-      this.members=members;
-    })
-  }
+  // loadmembers()
+  // {
+  //   this.memberService.getMemebers().subscribe(members=>{
+  //     this.members$=members;
+  //   })
+  // }
 }
