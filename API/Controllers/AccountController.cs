@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> LoginUser(LoginDTO loginDTO)
         {
             var user = await _context.Users
+            .Include(p=>p.Photos)
               .SingleOrDefaultAsync(x => x.UserName == loginDTO.UserName.ToLower());
 
             if (user == null)
@@ -68,6 +70,8 @@ namespace API.Controllers
 
                 UserName = user.UserName,
                 token = _tokenService.CreateToken(user)
+                ,
+                PhotoUrl =user.Photos.FirstOrDefault(x=>x.IsMain)?.Url                
             };
         }
         private async Task<bool> UserExists(string username)
