@@ -23,7 +23,7 @@ const routes: Routes = [
       { path : 'members' ,component:MemberListsComponent ,canActivate:[AuthGuard]},
       { path : 'members/:username' ,component:MemberDetailsComponent},
       { path : 'member/edit' ,component:MemberEditComponent,canDeactivate:[PreventUnsavedChangesGuard]},
-      { path : 'lists' ,component:ListsComponent},
+      { path : 'lists' ,component:ListsComponent,canActivate:[AuthGuard]},
     
       { path : 'messages' ,component:MessagesComponent},
     ]
