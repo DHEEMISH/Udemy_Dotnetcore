@@ -69,6 +69,7 @@ namespace API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+       // It is software which is injected into the application pipeline to handle request and responses
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // if (env.IsDevelopment())
@@ -76,6 +77,7 @@ namespace API
             //     app.UseDeveloperExceptionPage();
                
             // }
+
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseSwagger();

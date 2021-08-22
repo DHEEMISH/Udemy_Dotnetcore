@@ -17,7 +17,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
 
-     [Authorize]
+    // [Authorize]
     public class UsersController : BaseApiController
     {
 
@@ -114,7 +114,7 @@ namespace API.Controllers
         }
        
 
-        [HttpDelete("delete-photo")]
+        [HttpDelete("delete-photo/{photoId}")]
        public async Task<ActionResult> DeletePhoto(int photoId)
        {
         var user=await _userRepository.GetUserbyNameAsync(User.GetUsername());
